@@ -1,0 +1,3165 @@
+﻿<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Innogy SmartHome API Test Client</title>
+<link href="styles/jquery.jsonview.css" type="text/css" rel="stylesheet">
+<link href="styles/style.css" type="text/css" rel="stylesheet">
+<div id="main">
+  <div class="container authentication">
+    <div class="titlebar">
+      <div class="title">Token</div>
+    </div>
+    <br>
+    <div class="token_container">
+      <div data-bind="token" data-converter="visibility" hidden>
+        <div class="tokenblock" data-bind="token">
+          Not logged in
+        </div>
+        <div class="darkbutton">
+          <input type="button" data-command="refresh" value="Token refresh">
+        </div>
+        <div class="authenticationblock">
+          <table>
+            <tr>
+              <td></td>
+              <td class="text-center">
+                <div class="darkbutton">
+                  <input type="button" data-command="login" value="Login" data-bind="loggedIn" data-converter="invisibility">
+                </div>
+                <div class="darkbutton">
+                  <input type="button" data-command="logout" value="Logout" hidden data-bind="loggedIn" data-converter="visibility">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <div class="darkbutton">
+                  <input type="button" data-command="connect" value="Open Web Socket" data-bind="connected" data-converter="invisibility">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <div class="darkbutton">
+                  <input type="button" data-command="disconnect" hidden value="Close Web Socket" data-bind="connected" data-converter="visibility">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="loginarea" data-bind="token" data-converter="invisibility">
+        <form method="POST">
+          <table>
+            <tr>
+              <td colspan="2">
+                Grant type:
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <select name="grantType" size="1" class="listbox">
+                  <option class="listboxentry" value="oauth_redirect">Redirect</option>
+                  <option class="listboxentry" value="authorization_code">Authorization Code</option>
+                  <option class="listboxentry" value="refresh_token">Refresh Token</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                Client Id:
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div class="textbox">
+                  <input name="clientId" autofocus>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                Client Secret:
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div class="textbox">
+                  <input name="clientSecret">
+                </div>
+              </td>
+            </tr>
+            <tr class="usernameelement">
+              <td colspan="2" data-bind="parameterName">
+                Redirect URL:
+              </td>
+            </tr>
+            <tr class="usernameelement">
+              <td colspan="2">
+                <div class="textbox">
+                  <input name="code">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td height="10px" colspan="2"></td>
+            </tr>
+            <tr>
+              <td height="10px" colspan="2"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div class="darkbutton">
+                  <input type="button" data-command="authorize" value="Authorize">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="titlebar">
+      <div class="title" data-bind="clientName"></div>
+      <div class="label" data-bind="appUri"></div>
+    </div>
+    <br>
+    <div class="workspace">
+      <div data-bind="token" data-converter="visibility" hidden>
+        <!--Account area-->
+        <div class="area" data-script="clientapi.account.js">
+          <div class="headingbold">&gt; Account</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Relationship" data-command="getRelationship">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="relationshipUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30"></td>
+                <td class="tablerow" width="30"></td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Relationship" data-command="deleteRelationship">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="relationshipUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30"></td>
+                <td class="tablerow" width="30"></td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="4">
+                  <div class="darkbutton14">
+                    <input type="button" value="CREATE Relationship" data-command="postRelationship">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="4">
+                  <div class="URL" data-bind="relationshipUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  SHC Serial Number:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="ShcSerialNo">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  SHC Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="ShcName">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Pin Code:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PinCode">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Restore configuration:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="RestoreConfig" placeholder="true/false">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="UPDATE Relationship" data-command="postConfigRelationship">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="relationshipConfigUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  SHC Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="RelationshipNewName">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" colspan="4">
+                  <form method="POST" data-converter="action" data-bind="changePasswordUri" enctype="application/json" target="_blank">
+                    <input type="hidden" name="token" data-bind="token" data-converter="value">
+                    <table class="outlined">
+                      <tr>
+                        <td class="tablerow" rowspan="3" width="150px">
+                          <div class="darkbutton14">
+                            <input type="submit" value="Change Password Window">
+                          </div>
+                        </td>
+                        <td class="tablerow" rowspan="3" width="600px">
+                          <div class="URL" data-bind="changePasswordUri">
+                          </div>
+                        </td>
+                        <td class="tablerow" width="30px">
+                          ClientId:
+                        </td>
+                        <td class="tablerow">
+                          <div class="parameterduobox">
+                            <input name="clientId">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tablerow" width="30px">
+                          RedirectUrl:
+                        </td>
+                        <td class="tablerow">
+                          <div class="parameterduobox">
+                            <input name="redirectUrl">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tablerow" width="30px">
+                          Language:
+                        </td>
+                        <td class="tablerow">
+                          <div class="parameterduobox">
+                            <input name="language" value="en-GB">
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="5">
+                  <div class="darkbutton14">
+                    <input type="button" value="Change Password" data-command="changePassword">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="5">
+                  <div class="URL" data-bind="changePasswordUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Current Password:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="ChangePassCurrPass">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  New Password:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="ChangePassNewPass">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Language:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="ChangePassLang">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  ClientId:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="ChangePassClientId">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  RedirectUrl:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="ChangePassRedUrl">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="4">
+                  <div class="darkbutton14">
+                    <input type="button" value="Send reset password link" data-command="sendResetPasswordLink">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="4">
+                  <div class="URL" data-bind="resetPasswordUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Email:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="SendResetPasswordLinkEmail">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Language:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="SendResetPasswordLinkLanguage">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  ClientId:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="SendResetPassClientId">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  RedirectUrl:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="SendResetPassRedUrl">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET User" data-command="getAccount">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="userUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30"></td>
+                <td class="tablerow" width="30"></td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE User" data-command="deleteAccount">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="userUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30"></td>
+                <td class="tablerow" width="30"></td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="13">
+                  <div class="darkbutton14">
+                    <input type="button" value="PUT User" data-command="putAccount">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="13">
+                  <div class="URL" data-bind="userUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Title:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataTitle">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Gender:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataGender">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  First name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataFname">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Last name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataLname">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Street:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataStreet">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Number:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataNumber">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Postal code:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataPCode">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Location:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataLocation">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Telephone number:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataTelNo">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Mobile telephone number:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataMTelNo">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Culture:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataCulture">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Email Address:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataEmail">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Country code:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PutUserAccountDataCCode">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Remove Store Account" data-command="removeStoreAccount">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="storeAccountUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30"></td>
+                <td class="tablerow" width="30"></td>
+              </tr>
+              <tr>
+                <td class="tablerow" colspan="4">
+                  <form method="POST" data-bind="authUri" data-converter="action" enctype='application/json' target="_blank">
+                    <input type="hidden" name="token" data-bind="token" data-converter="value">
+                    <table class="outlined">
+                      <tr>
+                        <td class="tablerow" rowspan="3" width="150px">
+                          <div class="darkbutton14">
+                            <input type="submit" value="TaC Window">
+                          </div>
+                        </td>
+                        <td class="tablerow" rowspan="3" width="600px">
+                          <div class="URL" data-bind="tacUri">
+                          </div>
+                        </td>
+                        <td class="tablerow" width="30px">
+                          RedirectUrl:
+                        </td>
+                        <td class="tablerow">
+                          <div class="parameterduobox">
+                            <input name="redirectUrl">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tablerow" width="30px">
+                          Language:
+                        </td>
+                        <td class="tablerow">
+                          <div class="parameterduobox">
+                            <input name="language" value="en-GB">
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Action area-->
+        <div class="area" data-script="clientapi.action.js">
+          <div class="headingbold">&gt; Action</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="3">
+                  <div class="darkbutton14">
+                    <input type="button" value="Invoke SetState" data-command="invokeSetStateAction">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="3">
+                  <div class="URL" data-bind="actionUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Link:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostActionLink" placeholder="/capability/{id}">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Parameter:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostActionParameter" placeholder="OnState">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Value:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostActionValue" placeholder="true/false">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Invoke ActivateDeviceDiscovery" data-command="invokeActivateDeviceDiscovery">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="actionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Invoke DeactivateDeviceDiscovery" data-command="invokeDeactivateDeviceDiscovery">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="actionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Invoke Action" data-command="invokeAction">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="actionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PostActionPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        <div>
+        <!--Capability area-->
+        <div class="area" data-script="clientapi.capability.js">
+          <div class="headingbold">&gt; Capability</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!--GET Capability-->
+              <tr>
+                <td class="tablerow" rowspan="3">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Capability" data-command="getCapability">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="3">
+                  <div class="URL" data-bind="capabilityIdUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="GetCapabilityId" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TKey:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetCapabilityTKey" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TValue:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetCapabilityTValue" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Capability/Config-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Capability/Config" data-command="getCapabilityConfig">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="capabilityConfigUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="GetCapabilityConfigId">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetCapabilityConfigName" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Capability/State-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Capability/State" data-command="getCapabilityState">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="capabilityStateUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="GetCapabilityStateId">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetCapabilityStateName" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Capability/Tag-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Capability/Tag" data-command="getCapabilityTag">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="capabilityTagUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="GetCapabilityTagId">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetCapabilityTagName" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Capability/States (ALL)-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Capability/States (ALL)" data-command="getAllCapabilityStates">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="capabilityStatesUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+              <!--PUT Capability-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="PUT Capabilities" data-command="putCapabilities">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="capabilityUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PutCapabilitiesPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--DAL (DATA) area-->
+        <div class="area" data-script="clientapi.data.js">
+          <div class="headingbold">&gt; DAL (DATA)</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="6">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Data" data-command="getDeviceData">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="6">
+                  <div class="URL" data-bind="deviceDataUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="GetDeviceDataId" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Activity type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceDataActivity" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Start date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceDataStart" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  End date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceDataEnd" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceDataPage" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceDataPageSize" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Data" data-command="deleteDeviceData">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="deviceDataUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Device area-->
+        <div class="area" data-script="clientapi.device.js">
+          <div class="headingbold">&gt; Device</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!--GET Device-->
+              <tr>
+                <td class="tablerow" rowspan="3">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Device" data-command="getDevices">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="3">
+                  <div class="URL" data-bind="deviceUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="DeviceId" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TKey:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceTKey" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TValue:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceTValue" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Linked Devices-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Device/LinkedDevices" data-command="getDeviceLinkedDevices">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="deviceLinkedUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="DeviceIdLinked">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Device State-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Device/State" data-command="getDeviceState">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="deviceStateUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="DeviceIdState">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceStateName" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Device Capabilities-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Device/Capabilities" data-command="getDeviceCapabilities">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="deviceCapabilityUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="DeviceIdCaps">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Device Config-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Device/Config" data-command="getDeviceConfig">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="deviceConfigUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="DeviceIdConfig">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceConfigName" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET Device Tags-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Device/Tag" data-command="getDeviceTag">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="deviceTagUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="DeviceIdTag">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetDeviceTagName" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--GET ALL Device States-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Device/States (ALL)" data-command="getDevicesStates">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="deviceStatesUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+              <!--POST DEVICE-->
+              <tr>
+                <td class="tablerow" rowspan="9">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Device" data-command="postDevices">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="9">
+                  <div class="URL" data-bind="deviceUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDeviceId" placeholder="GUID">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDeviceType" placeholder="Pss">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Manufacturer:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDeviceManufacturer" placeholder="RWE">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Version:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDeviceVersion" placeholder="1.0">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Product:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDeviceProduct" placeholder="sh://core.RWE">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  SN:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDevicSN" placeholder="914100001234">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Protocol:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDevicProtocol" placeholder="Cosip">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDeviceName">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Location ID:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostDeviceLocationId" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--POST Any DEVICE-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Any Device" data-command="postAnyDevices">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="deviceUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PostDevicesPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <!--PUT Device-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="PUT Devices" data-command="putDevices">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="deviceUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PutDevicesPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <!--Delete device-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Device" data-command="deleteDevice">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="deviceUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="DeleteDeviceId">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Product area-->
+        <div class="area" data-script="clientapi.product.js">
+          <div class="headingbold">&gt; Product</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="5">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Available Products" data-command="getAvailableProducts">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="5">
+                  <div class="URL" data-bind="productUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Provisioned:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="provisioned">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Is Premium Service:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="isPremiumService">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Is Service:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="isService">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Product Kind:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="productKind">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Culture:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="extensionCulture">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Get Products" data-command="getProducts">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="productUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="getProductType">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Provision Product" data-command="provisionProduct">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="productAddUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="addProductType">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Update Product" data-command="updateProduct">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="productUpdateUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="updateProductType">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Activate Product" data-command="activateProduct">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="productActivateUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="activateProductType">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Deactivate Product" data-command="deactivateProduct">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="productDeactivateUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="deactivateProductType">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Remove Product" data-command="removeProduct">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="productRemoveUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="removeProductType">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Friend (AM) area-->
+        <div class="area" data-script="clientapi.friend.js">
+          <div class="headingbold">&gt; Friend (AM)</div>
+          <div class="interfacesArea">    
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!--GET Friends-->
+              <tr>
+                <td class="tablerow" rowspan="1">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Friends" data-command="getFriends">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="1">
+                  <div class="URL" data-bind="friendUri"></div>
+                </td>
+              </tr>
+              <!--DELETE Friend-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Friend" data-command="deleteFriend">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="friendDeleteUri"></div>
+                </td>
+                <td class="tablerow" width="130">
+                  Friend account name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="DeleteFriend" placeholder="(string)">
+                  </div>
+                </td>
+              </tr>
+              <!--CREATE Friend-->
+              <tr>
+                <td class="tablerow" rowspan="3">
+                  <div class="darkbutton14">
+                    <input type="button" value="CREATE Friend" data-command="createFriend">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="3">
+                  <div class="URL" data-bind="friendUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Friend account name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="CreateFriend_AccountName" placeholder="(string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Friendly name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="CreateFriend_FriendlyName" placeholder="(string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Permissions:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="CreateFriend_Permissions" placeholder="(string: coma separated)">
+                  </div>
+                </td>
+              </tr>
+              <!--UPDATE Friend-->
+              <tr>
+                <td class="tablerow" rowspan="3">
+                  <div class="darkbutton14">
+                    <input type="button" value="UPDATE Friend" data-command="updateFriend">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="3">
+                  <div class="URL" data-bind="friendUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Friend account name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="UpdateFriend_AccountName" placeholder="(string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Friendly name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="UpdateFriend_FriendlyName" placeholder="(string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Permissions:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="UpdateFriend_Permissions" placeholder="(string: coma separated)">
+                  </div>
+                </td>
+              </tr>
+            </table>      
+          </div>
+        </div>
+        <!--Image (DATA) area-->
+        <div class="area" data-script="clientapi.image.js">
+          <div class="headingbold">&gt; Image (DATA)</div>
+          <div class="interfacesArea">
+            <table style="max-width: 1200px">
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!--GET images-->
+              <tr>
+                <td class="tablerow" rowspan="6">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET images" data-command="getImages">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="6">
+                  <div class="URL" data-bind="imagesUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Camera name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetImages_Camera" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Camera id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetImages_CameraId" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Start:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetImages_Start" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  End:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetImages_End" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetImages_Page" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetImages_PageSize" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <!--GET image by id-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET image by id" data-command="getImageById">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="imageIdUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Image id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetImageById_Id" placeholder="(integer)">
+                  </div>
+                </td>
+              </tr>
+              <!--DELETE images-->
+              <tr>
+                <td class="tablerow" rowspan="4">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE images" data-command="deleteImages">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="4">
+                  <div class="URL" data-bind="imagesDeleteUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Camera name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="DeleteImages_Camera" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Camera id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="DeleteImages_CameraId" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Start:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="DeleteImages_Start" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  End:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="DeleteImages_End" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <!--DELETE image by id-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE image by id" data-command="deleteImageById">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="imageIdUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Image id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="DeleteImageById_Id" placeholder="(integer)">
+                  </div>
+                </td>
+              </tr>
+              <!--GET raw images-->
+              <tr>
+                <td class="tablerow" rowspan="6">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET raw images" data-command="getRawImages">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="6">
+                  <div class="URL" data-bind="imagesRawUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Camera name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetRawImages_Camera" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Camera id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetRawImages_CameraId" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Start:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetRawImages_Start" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  End:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetRawImages_End" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetRawImages_Page" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetRawImages_PageSize" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <!--GET raw image by id-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET raw image by id" data-command="getRawImageById">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="imageRawIdUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Image id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetRawImageById_Id" placeholder="(integer)">
+                  </div>
+                </td>
+              </tr>
+              <!--GET thumbnails-->
+              <tr>
+                <td class="tablerow" rowspan="7">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET thumbnails" data-command="getThumbnails">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="7">
+                  <div class="URL" data-bind="imageThumbnailsUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Camera name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetThumbnails_Camera" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Camera id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetThumbnails_CameraId" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Thumbnail size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <select name="GetThumbnails_Size" size="1">
+                      <option class="listboxentry" value="small" selected="selected">Small</option>
+                      <option class="listboxentry" value="medium">Medium</option>
+                      <option class="listboxentry" value="large">Large</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Start:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetThumbnails_Start" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  End:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetThumbnails_End" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetThumbnails_Page" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetThumbnails_PageSize" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <!--GET thumbnail by id-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET thumbnail by id" data-command="getThumbnailById">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="imageThumbnailUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Image id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetThumbnailById_Id" placeholder="(integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Thumbnail size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <select name="GetThumbnailById_Size" size="1">
+                      <option class="listboxentry" value="small" selected="selected">Small</option>
+                      <option class="listboxentry" value="medium">Medium</option>
+                      <option class="listboxentry" value="large">Large</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <!--GET metadata-->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET metadata" data-command="getImageMetadata">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="imageMetadataUri"></div>
+                </td>
+                <td class="tablerow" width="90">
+                  Camera name:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetMetadata_Camera" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Camera id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetMetadata_CameraId" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" colspan="4" align="center">
+                  <input type="button" data-command="showImages" value="Show images">
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Interactions area-->
+        <div class="area" data-script="clientapi.interaction.js">
+          <div class="headingbold">&gt; Interaction</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!--GET Interaction(s)-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Interaction(s)" data-command="getInteraction">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="interactionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="InteractionId">
+                  </div>
+                </td>
+              </tr>
+              <!--DELETE Interaction-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Interaction" data-command="deleteInteraction">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="interactionIdUri"></div>
+                </td>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <input name="DeleteInteractionId">
+                  </div>
+                </td>
+              </tr>
+              <!--POST/PUT Interaction-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Interaction" data-command="createInteraction">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="interactionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2" rowspan="2">
+                  <div class="inline-table">
+                    <textarea name="InteractionPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="PUT Interaction" data-command="updateInteraction">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="interactionUri">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Location area-->
+        <div class="area" data-script="clientapi.location.js">
+          <div class="headingbold">&gt; Location</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET All Locations" data-command="getAllLocations">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="locationUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Location" data-command="getLocation">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="locationIdUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="Location Id">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="5">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Location" data-command="postLocation">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="5">
+                  <div class="URL" data-bind="locationUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="30">
+                  Id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostLocationId" placeholder="GUID">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  ConfigName:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostLocationConfigName" placeholder="Wohnzimmer">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  ConfigType:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostLocationConfigType" placeholder="Bedroom">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TagName:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostLocationTagName" placeholder="Floor">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TagValue:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="PostLocationTagValue" placeholder="Ground Floor">
+                  </div>
+                </td>
+              </tr>
+              <!--DELETE Location-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Location" data-command="deleteLocation">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="locationUri"></div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterduobox">
+                    <input name="DeleteLocationId">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Message area-->
+        <div class="area" data-script="clientapi.message.js">
+          <div class="headingbold">&gt; Message</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!--GET-->
+              <tr>
+                <td class="tablerow" rowspan="3">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Messages" data-command="getMessages">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="3">
+                  <div class="URL" data-bind="messageIdUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterduobox">
+                    <input name="GetMessageId">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TKey:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetMessageTKey" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  TValue:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetMessageTValue" placeholder="OPTIONAL">
+                  </div>
+                </td>
+              </tr>
+              <!--DELETE-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Message" data-command="deleteMessages">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="messageUri"></div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterduobox">
+                    <input name="DeleteMessageId">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Metadata area-->
+        <div class="area" data-script="clientapi.metadata.js">
+          <div class="headingbold">&gt; Metadata</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Metadata" data-command="getMetadata">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="metadataUri">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <select name="MetadataFormat" size="1" class="listbox">
+                      <option class="listboxentry" value="application/json" selected="true">JSON</option>
+                      <option class="listboxentry" value="application/xml">XML</option>
+                      <option class="listboxentry" value="application/xsd">XSD</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <input name="MetadataUrl" placeholder="/device/PSS.RWE/1.0">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Utility (DATA) area-->
+        <div class="area" data-script="clientapi.utilitydata.js">
+          <div class="headingbold">&gt; Utility (DATA)</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="7">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Energy Data" data-command="getEnergyData">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="7">
+                  <div class="URL" data-bind="energyUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="GetUtilityTypeEnergy" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Meter id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityMeterIdEnergy" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Aggregation:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityAggregationEnergy" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Start date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityStartEnergy" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  End date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityEndEnergy" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPageEnergy" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPageSizeEnergy" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="6">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Power Data" data-command="getPowerData">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="6">
+                  <div class="URL" data-bind="powerUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="parameterbox">
+                    <input name="GetUtilityTypePower" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Meter id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityMeterIdPower" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Start date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityStartPower" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  End date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityEndPower" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPagePower" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPageSizePower" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="7">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Storage Data" data-command="getStorageData">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="7">
+                  <div class="URL" data-bind="storageUri">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Meter id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityMeterIdStorage" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Aggregation:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityAggregationStorage" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Start date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityStartStorage" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  End date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityEndStorage" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPageStorage" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPageSizeStorage" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" rowspan="7">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Water Data" data-command="getWaterData">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="7">
+                  <div class="URL" data-bind="waterUri">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Serial number:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilitySerialNumberWater" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Aggregation:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityAggregationWater" placeholder="OPTIONAL (string)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Start date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityStartWater" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  End date:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityEndWater" placeholder="OPTIONAL (yyyy-mm-ddTHH:mm:ss)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPageWater" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="30">
+                  Page size:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <input name="GetUtilityPageSizeWater" placeholder="OPTIONAL (integer)">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Notification area -->
+        <div class="area" data-script="clientapi.notification.js">
+          <div class="headingbold">&gt; Subscription (API Notifcation)</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!--GET All Notifications-->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET All Subscriptions" data-command="getAllNotifications">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="notificationUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="90">
+                  Channel type:
+                </td>
+                <td class="tablerow">
+                  <select name="GetNotificationChannelType" size="1" class="fixed-width">
+                    <option class="listboxentry" value="" selected="selected"></option>
+                    <option class="listboxentry" value="SMS">SMS</option>
+                    <option class="listboxentry" value="Email">Email</option>
+                    <option class="listboxentry" value="Push">Push</option>
+                  </select>
+                </td>
+              </tr>
+              <!-- Post Notification -->
+              <tr>
+                <td class="tablerow" rowspan="7">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Subscription" data-command="postNotifications">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="7">
+                  <div class="URL" data-bind="notificationUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="90">
+                  Channel type:
+                </td>
+                <td class="tablerow">
+                  <select name="PostNotificationChannelType" size="1" class="fixed-width">
+                    <option class="listboxentry" value="" selected></option>
+                    <option class="listboxentry" value="SMS">SMS</option>
+                    <option class="listboxentry" value="Email">Email</option>
+                    <option class="listboxentry" value="Push">Push</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Platform:
+                </td>
+                <td class="tablerow">
+                  <select name="PostNotificationChannelPropertyPlatform" size="1" disabled class="fixed-width" data-bind="isPush" data-converter="enabled">
+                    <option class="listboxentry" value="" selected="selected"></option>
+                    <option class="listboxentry" value="APNS">APNS (Apple)</option>
+                    <option class="listboxentry" value="GCM">GCM (Android)</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Device Id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <input name="PostNotificationChannelPropertyDeviceId" placeholder="DeviceId" disabled data-bind="isPush" data-converter="enabled">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Token:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <input name="PostNotificationChannelPropertyToken" placeholder="Token" disabled data-bind="isPush" data-converter="enabled">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  ProductId filter: 
+                </td>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <input name="PostNotificationProductIdFilter" placeholder="core.RWE">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Type filter:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <input name="PostNotificationTypeFilter" placeholder="DeviceUnreachable">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Class filter:
+                </td>
+                <td class="tablerow">
+                  <select name="PostNotificationClassFilter" size="1" class="fixed-width">
+                    <option class="listboxentry" value="" selected></option>
+                    <option class="listboxentry" value="Alert">Alert</option>
+                    <option class="listboxentry" value="Message">Message</option>
+                  </select>
+                </td>
+              </tr>
+              <!-- POST Any Notification -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Any Subscription" data-command="postAnyNotification">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="notificationUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PostNotificationPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <!-- PUT notification -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="PUT Any Subscription" data-command="putAnyNotification">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="notificationIdUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PutNotificationPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <!-- Delete notification -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="DELETE Subscription" data-command="deleteNotification">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="notificationIdUri">
+                </td>
+                <td class="tablerow" width="90">
+                  Notification id:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterbox">
+                    <input name="DeleteNotificationId">
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Subscription (DATA) area -->
+        <div class="area" data-script="clientapi.subscription.js">
+          <div class="headingbold">&gt; Subscription (DATA)</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!-- GET Subscriptions -->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Subscriptions" data-command="getSubscriptions">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="subscriptionUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="90">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <select name="GetSubscriptionType" size="1">
+                      <option class="listboxentry" value="" selected="selected"></option>
+                      <option class="listboxentry" value="utility">utility</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Subtype:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <select name="GetSubscriptionSubtype" size="1">
+                      <option class="listboxentry" value="" selected="selected"></option>
+                      <option class="listboxentry" value="ipv">ipv</option>
+                      <option class="listboxentry" value="smartmeter">smartmeter</option>
+                      <option class="listboxentry" value="energycontrol">energycontrol</option>
+                      <option class="listboxentry" value="scc">scc</option>
+                      <option class="listboxentry" value="varta">varta</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <!-- Post Subscription -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Subscription" data-command="postSubscription">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="subscriptionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PostSubscriptionPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <!-- Delete Subscription -->
+              <tr>
+                <td class="tablerow" rowspan="2">
+                  <div class="darkbutton14">
+                    <input type="button" value="Delete Subscription" data-command="deleteSubscription">
+                  </div>
+                </td>
+                <td class="tablerow" rowspan="2">
+                  <div class="URL" data-bind="subscriptionUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="90">
+                  Type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <select name="DeleteSubscriptionType" size="1">
+                      <option class="listboxentry" value="" selected="selected"></option>
+                      <option class="listboxentry" value="utility">utility</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="tablerow" width="90">
+                  Subtype:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <select name="DeleteSubscriptionSubtype" size="1">
+                      <option class="listboxentry" value="" selected="selected"></option>
+                      <option class="listboxentry" value="ipv">ipv</option>
+                      <option class="listboxentry" value="smartmeter">smartmeter</option>
+                      <option class="listboxentry" value="energycontrol">energycontrol</option>
+                      <option class="listboxentry" value="scc">scc</option>
+                      <option class="listboxentry" value="varta">varta</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--Insights area-->
+        <div class="area" data-script="clientapi.insights.js">
+          <div class="headingbold">&gt; Insights</div>
+          <div class="interfacesArea">
+            <table>
+              <tr>
+                <td width="150" class="tableheader">
+                  <span class="subheading">Request</span>
+                </td>
+                <td width="600" class="tableheader">
+                  <span class="subheading">API Request Url</span>
+                </td>
+                <td width="350" class="tableheader" colspan="2">
+                  <span class="subheading">Parameter</span>
+                </td>
+              </tr>
+              <!-- GET Available Insights -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Insights" data-command="getAvailableInsights">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="insightSubscriptionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+              <!-- GET Insight Subscriptions -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Insight Subscriptions" data-command="getInsightSubscriptions">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="insightsUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2"></td>
+              </tr>
+              <!-- GET Insight Results -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="GET Insight Results" data-command="getInsightResults">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="insightsResultUri">
+                  </div>
+                </td>
+                <td class="tablerow" width="70">
+                  Result type:
+                </td>
+                <td class="tablerow">
+                  <div class="parameterduobox">
+                    <select name="InsightsResultType" size="1" width="260px">
+                      <option class="listboxentry" value="ENERGY_COST_PER_MONTH">ENERGY_COST_PER_MONTH</option>
+                      <option class="listboxentry" value="ENERGY_CONSUMPTION_PER_MONTH">ENERGY_CONSUMPTION_PER_MONTH</option>
+                      <option class="listboxentry" value="ENERGY_GENERATION_PER_MONTH">ENERGY_GENERATION_PER_MONTH</option>
+                      <option class="listboxentry" value="SELF_CONSUMPTION">SELF_CONSUMPTION</option>
+                      <option class="listboxentry" value="IDLE_ENERGY_CONSUMPTION">IDLE_ENERGY_CONSUMPTION</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <!-- Post Insight Subscription -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="POST Insight Subscription" data-command="postInsightSubscription">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="insightSubscriptionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PostInsightSubscriptionPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <!-- Put Insight Subscription -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="PUT Insight Subscription" data-command="putInsightSubscription">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" data-bind="insightSubscriptionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="PutInsightSubscriptionPayload" rows="20" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <!-- Delete Insight Subscription -->
+              <tr>
+                <td class="tablerow">
+                  <div class="darkbutton14">
+                    <input type="button" value="Delete Insight Subscription" data-command="deleteInsightSubscription">
+                  </div>
+                </td>
+                <td class="tablerow">
+                  <div class="URL" idata-bind="insightSubscriptionUri">
+                  </div>
+                </td>
+                <td class="tablerow" colspan="2">
+                  <div class="inline-table">
+                    <textarea name="DeleteInsightSubscriptionPayload" rows="10" cols="40"></textarea>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div data-bind="token" data-converter="visibility" hidden>
+        <br>
+        <table>
+          <tr>
+            <td class="vertical-top" colspan="3">
+              <!-- Request Area -->
+              <table>
+                <tr>
+                  <td width="80px" class="darkbutton14" rowspan="2">Request:</td>
+                  <td width="40px">TYPE</td>
+                  <td width="430px">URI</td>
+                  <td>BODY</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="URL"><span data-bind="requestType" class="request-url"></span></div>
+                  </td>
+                  <td>
+                    <div class="URL"><span data-bind="requestUri" class="request-url"></span></div>
+                  </td>
+                  <td>
+                    <pre data-bind="requestBody" data-converter="json" class="request_body"></pre>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td class="vertical-top">
+              <!-- Output Area (Polling) -->
+              <table>
+                <tr>
+                  <td width="120px" valign="middle">
+                    <span class="heading">Output</span>
+                  </td>
+                  <td width="50px">
+                    <div class="label">Timing:</div>
+                  </td>
+                  <td width="180px">
+                    <div class="timingblock" data-bind="timing"></div>
+                  </td>
+                  <td width="180">
+                    <div class="darkbutton">
+                      <input type="button" value="Expand/Collapse" data-command="toggleJson" width="180">
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <pre data-bind="apiOutput" data-converter="api" class="outputarea"></pre>
+            </td>
+            <td width="10"></td>
+            <td class="vertical-top">
+              <!-- Events Area (Real time) -->
+              <table>
+                <tr>
+                  <td width="150" valign="middle">
+                    <span class="heading">Events</span>
+                  </td>
+                  <td width="80px">
+                    <div class="label">Last event:</div>
+                  </td>
+                  <td width="180px">
+                    <div class="timingblock" data-bind="lastTime"></div>
+                  </td>
+                </tr>
+              </table>
+              <pre data-bind="eventOutput" data-converter="event" class="outputarea"></pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="scripts/jquery-2.0.3.min.js"></script>
+<script src="scripts/jquery.jsonview.js"></script>
+<script src="scripts/clientapi.common.js"></script>
